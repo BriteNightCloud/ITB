@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ITB.Windows"
         mc:Ignorable="d"
         Title='ООО "ИТБ" / Управление торговлей и взаимоотношениями с клиентами.' 
-        MinHeight="450" MinWidth="800" Height="450" Width="800" WindowStartupLocation="CenterScreen" Icon="/Windows/icon.png">
+        MinHeight="450" MinWidth="800" Height="450" Width="800" WindowStartupLocation="CenterScreen" Icon="/icon.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>

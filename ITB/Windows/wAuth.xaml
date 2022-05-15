@@ -7,7 +7,7 @@
         MouseLeftButtonDown="Window_Drag"
         BorderThickness="1"
         mc:Ignorable="d"
-        Title='ООО "ИТБ"' ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" WindowStyle="None" Icon="/Windows/icon.png">
+        Title='ООО "ИТБ"' ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" WindowStyle="None" Icon="/icon.ico">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
