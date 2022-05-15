@@ -27,17 +27,24 @@ namespace ITB.Windows
 
         private void Menu_Click(object sender, RoutedEventArgs e)
         {
+            Window w = new wModal();
+            w.Owner = this;
+            w.Left = (double)typeof(Window).GetField("_actualLeft", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(this) + WidthPoint.ActualWidth;
+            w.Top = (double)typeof(Window).GetField("_actualTop", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(this) + 35;
+            w.Width = this.ActualWidth - WidthPoint.ActualWidth - 15;
+            w.Height = this.ActualHeight - 50;
             switch (((Button)sender).Name)
             {
                 case "General":
-                    frmMain.Navigate(new Page());
                     break;
                 case "Sales":
-                    frmMain.Navigate(new pSales());
+                    break;
+                case "Clients":
                     break;
                 default:
                     break;
             }
+            w.ShowDialog();
         }
     }
 }

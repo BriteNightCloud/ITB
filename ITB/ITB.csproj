@@ -87,6 +87,9 @@
     <Compile Include="Windows\wMain.xaml.cs">
       <DependentUpon>wMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\wModal.xaml.cs">
+      <DependentUpon>wModal.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -124,6 +127,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\wMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\wModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

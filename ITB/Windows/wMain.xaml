@@ -8,17 +8,25 @@
         Title='ООО "ИТБ" / Управление торговлей и взаимоотношениями с клиентами.' 
         MinHeight="450" MinWidth="800" Height="450" Width="800" WindowStartupLocation="CenterScreen" Icon="/icon.ico">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8"/> <!--Window Header?-->
+            <RowDefinition Height="32"/> <!--Tabs?-->
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition x:Name="WidthPoint" Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel Width="Auto" MinWidth="150" MaxWidth="250" Grid.Row="1" Grid.Column="0" Background="#FFFBED9E">
+
+        <Border Grid.Column="0" Grid.Row="2" BorderBrush="Silver" BorderThickness="0,0,1,0" Background="#FFFBED9E"/> <!--LeftMenu--> 
+        <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Silver" BorderThickness="0,1,0,1" Background="#FFF2F2F2" /> <!--TopTabs-->
+        <StackPanel x:Name="spMenu" Width="Auto" MinWidth="155" MaxWidth="250" Grid.Row="2" Grid.Column="0">
             <Button x:Name="General" Style="{DynamicResource MainLeftButton}" Content="Главная" Click="Menu_Click"/>
             <Button x:Name="Sales" Style="{DynamicResource MainLeftButton}" Content="Продажи" Click="Menu_Click"/>
-            <Button x:Name="Test1" Style="{DynamicResource MainLeftButton}" Content="Кнопка" Click="Menu_Click"/>
+            <Button x:Name="Clients" Style="{DynamicResource MainLeftButton}" Content="Клиенты" Click="Menu_Click"/>
             <Button x:Name="Test2" Style="{DynamicResource MainLeftButton}" Content="Кнопка" Click="Menu_Click"/>
         </StackPanel>
-        <!--<Frame x:Name="frmMain" Grid.Column="1" Source="../Pages/pSales.xaml" NavigationUIVisibility="Hidden" Focusable="False" IsTabStop="False"/>-->
-        <Frame x:Name="frmMain" Grid.Column="1" NavigationUIVisibility="Hidden" Focusable="False" IsTabStop="False"/>
+        <!--Source="../Pages/page.xaml"-->
+        <Frame x:Name="frmMain" Grid.Row="1" Grid.Column="1" NavigationUIVisibility="Hidden" Focusable="False" IsTabStop="False"/>
     </Grid>
 </Window>

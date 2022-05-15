@@ -14,7 +14,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Text='ООО "ИТБ"' Grid.Row="0" FontFamily="Calibri" FontWeight="DemiBold" FontSize="18" Margin="0,-5,0,0"/>
-        <Button Style="{DynamicResource ExitButton}" Content="✕" Grid.Row="0" HorizontalAlignment="Right" Margin="0,-10,-10,0" Width="30" Height="30" FontSize="12" BorderThickness="0" Background="{x:Null}" BorderBrush="{x:Null}" Click="Exit_Click"/>
+        <Button Style="{DynamicResource ExitButton}" Grid.Row="0" HorizontalAlignment="Right" Margin="0,-10,-10,0" Width="30" Height="30" FontSize="12" Click="Exit_Click"/>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,10,0,0">
             <StackPanel Orientation="Vertical" Margin="0,0,15,0">
                 <TextBlock Text="Пользователь:" Height="25" Padding="3" Margin="0,0,0,5" Foreground="#FF484848"/>
@@ -25,7 +25,7 @@
                 <StackPanel Orientation="Horizontal">
                     <PasswordBox x:Name="pbPassword" Height="25" Width="225" Padding="0,3" HorizontalAlignment="Left"/>
                     <TextBox x:Name="tbPassword" Height="25" Width="225" Padding="0,3" HorizontalAlignment="Left" Visibility="Collapsed"/>
-                    <Button Width="25" Height="25" BorderThickness="0,1,1,1" Content="👁" Click="ViewPass"/>
+                    <Button Style="{DynamicResource EyeButton}" Width="25" Height="25" BorderThickness="0,1,1,1" Content="👁" Click="ViewPass"/>
                 </StackPanel>
                 <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
                     <Button Style="{DynamicResource AuthButton}" Content="Войти" Width="75" Height="22" Margin="0,0,10,0" Foreground="#FF484848" FontWeight="Bold" FontFamily="Calibri" FontSize="13" Click="SignIn_Click" Background="#eaeaea"/>

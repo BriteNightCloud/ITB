@@ -35,12 +35,14 @@ namespace ITB.Windows
                 tbPassword.Text = pbPassword.Password;
                 tbPassword.Visibility = Visibility.Visible;
                 pbPassword.Visibility = Visibility.Collapsed;
+                ((Button)sender).Background = new SolidColorBrush(Color.FromRgb(175, 175, 175));
             }
             else
             {
                 pbPassword.Password = tbPassword.Text;
                 tbPassword.Visibility = Visibility.Collapsed;
                 pbPassword.Visibility = Visibility.Visible;
+                ((Button)sender).Background = new SolidColorBrush(Color.FromRgb(234, 234, 234));
             }    
         }
 
