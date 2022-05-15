@@ -1,0 +1,24 @@
+﻿<Window x:Class="ITB.Windows.wMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ITB.Windows"
+        mc:Ignorable="d"
+        Title='ООО "ИТБ" / Управление торговлей и взаимоотношениями с клиентами.' 
+        MinHeight="450" MinWidth="800" Height="450" Width="800" WindowStartupLocation="CenterScreen" Icon="/Windows/icon.png">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Width="Auto" MinWidth="150" MaxWidth="250" Grid.Row="1" Grid.Column="0" Background="#FFFBED9E">
+            <Button x:Name="General" Style="{DynamicResource MainLeftButton}" Content="Главная" Click="Menu_Click"/>
+            <Button x:Name="Sales" Style="{DynamicResource MainLeftButton}" Content="Продажи" Click="Menu_Click"/>
+            <Button x:Name="Test1" Style="{DynamicResource MainLeftButton}" Content="Кнопка" Click="Menu_Click"/>
+            <Button x:Name="Test2" Style="{DynamicResource MainLeftButton}" Content="Кнопка" Click="Menu_Click"/>
+        </StackPanel>
+        <!--<Frame x:Name="frmMain" Grid.Column="1" Source="../Pages/pSales.xaml" NavigationUIVisibility="Hidden" Focusable="False" IsTabStop="False"/>-->
+        <Frame x:Name="frmMain" Grid.Column="1" NavigationUIVisibility="Hidden" Focusable="False" IsTabStop="False"/>
+    </Grid>
+</Window>
