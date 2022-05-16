@@ -6,8 +6,15 @@
         xmlns:local="clr-namespace:ITB.Windows"
         BorderThickness="1"
         mc:Ignorable="d"
-        Title="wModal" d:Width="800" d:Height="450" ResizeMode="NoResize" WindowStartupLocation="Manual" WindowStyle="None" ShowInTaskbar="False" >
+        Title="wModal" d:Width="800" d:Height="450" ResizeMode="NoResize" WindowStartupLocation="Manual" WindowStyle="None" ShowInTaskbar="False">
     <Grid>
-        <Button Style="{DynamicResource ExitButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Exit_Click" Width="30" Height="30" Margin="5"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="1" Style="{DynamicResource ExitButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Exit_Click" Width="30" Height="30" Margin="10,15"/>
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <WrapPanel x:Name="wpContainer" Margin="-10,60,20,20"/>
+        </ScrollViewer>
     </Grid>
 </Window>

@@ -9,6 +9,6 @@
       Title="pSales">
 
     <Grid>
-        <Button Content="TEXT" Click="Button_Click"/>
+        <TextBlock Text="Поздравляю, вы нажали кнопку!" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="32"/>
     </Grid>
 </Page>

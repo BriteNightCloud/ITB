@@ -27,6 +27,6 @@
             <Button x:Name="Test2" Style="{DynamicResource MainLeftButton}" Content="Кнопка" Click="Menu_Click"/>
         </StackPanel>
         <!--Source="../Pages/page.xaml"-->
-        <Frame x:Name="frmMain" Grid.Row="1" Grid.Column="1" NavigationUIVisibility="Hidden" Focusable="False" IsTabStop="False"/>
+        <Frame x:Name="frmMain" Grid.Row="2" Grid.Column="1" NavigationUIVisibility="Hidden" Focusable="False" IsTabStop="False"/>
     </Grid>
 </Window>
