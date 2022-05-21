@@ -23,12 +23,11 @@ namespace ITB.Windows
         public wMain()
         {
             InitializeComponent();
-            frmMain.Navigate(new Page() { Content = new TextBlock() { Text = "Потыкайте по меню слева...", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, FontSize = 32 } });
         }
 
         private void Menu_Click(object sender, RoutedEventArgs e)
         {
-            wModal w = new wModal(frmMain);
+            wModal w = new wModal(frmMain, lvTabs);
             w.Owner = this;
             w.Left = (double)typeof(Window).GetField("_actualLeft", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(this) + WidthPoint.ActualWidth;
             w.Top = (double)typeof(Window).GetField("_actualTop", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(this) + 35;
@@ -39,12 +38,12 @@ namespace ITB.Windows
             switch (((Button)sender).Name)
             {
                 case "General":
-                    frmMain.Navigate(new Page() { Content = new TextBlock() { Text = "Потыкайте по меню слева...", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, FontSize = 32 } });
+                    w.NavigateStraight("Главная", new Page() { Content = new TextBlock() { Text = "Потыкайте по меню слева...", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, FontSize = 32 } });
                     break;
                 case "Sales":
                     w.AddCategory("Типа название категории");
                     w.AddItem("Владимир Пукин", new pSales());
-                    w.AddItem("Джо Бидон", new pSales());
+                    w.AddItem("Джо Бидон", new Page());
                     w.AddCategory("Второе");
                     w.AddItem("Может по пиву и домой?", new pSales());
                     w.AddCategory("Средней длинны");
@@ -59,5 +58,28 @@ namespace ITB.Windows
                     break;
             }
         }
+
+        // overcoder.net/q/2679817/wpf-как-определить-индекс-текущего-элемента-в-списке-из-обработчика-кнопки
+        private void btnTabClose_Click(object sender, RoutedEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+
+            while ((dep != null) && !(dep is ListViewItem))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+
+            if (dep == null)
+                return;
+
+            int index = lvTabs.ItemContainerGenerator.IndexFromContainer(dep);
+
+            lvTabs.Items.RemoveAt(index);
+
+            if (lvTabs.Items.Count > 0)
+                lvTabs.SelectedIndex = lvTabs.Items.Count - 1;
+        }
+
+        private void lvTabs_SelectionChanged(object sender, SelectionChangedEventArgs e) => frmMain.Navigate(lvTabs.SelectedItem?.GetType()?.GetProperty("page")?.GetValue(lvTabs.SelectedItem, null));
     }
 }

@@ -9,8 +9,9 @@
         MinHeight="450" MinWidth="800" Height="450" Width="800" WindowStartupLocation="CenterScreen" Icon="/icon.ico">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="8"/> <!--Window Header?-->
-            <RowDefinition Height="32"/> <!--Tabs?-->
+            <!--Window Header?-->
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="32"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -18,8 +19,47 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Grid.Row="2" BorderBrush="Silver" BorderThickness="0,0,1,0" Background="#FFFBED9E"/> <!--LeftMenu--> 
-        <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Silver" BorderThickness="0,1,0,1" Background="#FFF2F2F2" /> <!--TopTabs-->
+        <Border Grid.Column="0" Grid.Row="2" BorderBrush="Silver" BorderThickness="0,0,1,0" Background="#FFFBED9E"/> <!--LeftMenu-->
+        <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Silver" BorderThickness="0" Background="#FFF2F2F2"> <!--TopTabs-->
+            <ListView Height="Auto" x:Name="lvTabs" Grid.Row="1" Grid.ColumnSpan="2" Margin="0" BorderThickness="0,1,0,1" Background="{x:Null}" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" SelectionChanged="lvTabs_SelectionChanged" SelectionMode="Single">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" Height="Auto">
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Content}" MinWidth="15" MaxWidth="400" Width="Auto" Margin="0,0,2,0" Padding="15,8,20,8"/>
+                            <Button VerticalAlignment="Center" Style="{DynamicResource ExitButton}" Margin="-20,0,0,0" Click="btnTabClose_Click"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border x:Name="border" Height="32" Margin="0,-2,0,0" BorderThickness="0,0,1,0" BorderBrush="Gray" SnapsToDevicePixels="True">
+                                        <Border x:Name="underline" BorderBrush="#FF009646" BorderThickness="0" Margin="5,0,5,4">
+                                            <ContentPresenter Margin="-10,0,0,-4"/>
+                                        </Border>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" TargetName="border" Value="White"/>
+                                            <Setter Property="BorderThickness" TargetName="underline" Value="0,0,0,2"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Border>
         <StackPanel x:Name="spMenu" Width="Auto" MinWidth="155" MaxWidth="250" Grid.Row="2" Grid.Column="0">
             <Button x:Name="General" Style="{DynamicResource MainLeftButton}" Content="Главная" Click="Menu_Click"/>
             <Button x:Name="Sales" Style="{DynamicResource MainLeftButton}" Content="Продажи" Click="Menu_Click"/>
