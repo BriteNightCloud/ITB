@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ITB.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для pSales.xaml
+    /// Логика взаимодействия для pGeneral.xaml
     /// </summary>
-    public partial class pSales : Page
+    public partial class pGeneral : Page
     {
-        public pSales()
+        public pGeneral()
         {
             InitializeComponent();
         }

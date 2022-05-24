@@ -19,8 +19,12 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Grid.Row="2" BorderBrush="Silver" BorderThickness="0,0,1,0" Background="#FFFBED9E"/> <!--LeftMenu-->
-        <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Silver" BorderThickness="0" Background="#FFF2F2F2"> <!--TopTabs-->
+        <!--LeftMenu-->
+        <Border Grid.Column="0" Grid.Row="2" BorderBrush="Silver" BorderThickness="0,0,1,0" Background="#FFFBED9E"/>
+        <StackPanel x:Name="spMenu" Width="Auto" MinWidth="155" MaxWidth="250" Grid.Row="2" Grid.Column="0"/>
+
+        <!--TopTabs-->
+        <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Silver" BorderThickness="0" Background="#FFF2F2F2">
             <ListView Height="Auto" x:Name="lvTabs" Grid.Row="1" Grid.ColumnSpan="2" Margin="0" BorderThickness="0,1,0,1" Background="{x:Null}" 
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
                       VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" SelectionChanged="lvTabs_SelectionChanged" SelectionMode="Single">
@@ -60,12 +64,7 @@
                 </ListView.ItemContainerStyle>
             </ListView>
         </Border>
-        <StackPanel x:Name="spMenu" Width="Auto" MinWidth="155" MaxWidth="250" Grid.Row="2" Grid.Column="0">
-            <Button x:Name="General" Style="{DynamicResource MainLeftButton}" Content="Главная" Click="Menu_Click"/>
-            <Button x:Name="Sales" Style="{DynamicResource MainLeftButton}" Content="Продажи" Click="Menu_Click"/>
-            <Button x:Name="Clients" Style="{DynamicResource MainLeftButton}" Content="Клиенты" Click="Menu_Click"/>
-            <Button x:Name="Test2" Style="{DynamicResource MainLeftButton}" Content="Кнопка" Click="Menu_Click"/>
-        </StackPanel>
+        
         <!--Source="../Pages/page.xaml"-->
         <Frame x:Name="frmMain" Grid.Row="2" Grid.Column="1" NavigationUIVisibility="Hidden" Focusable="False" IsTabStop="False"/>
     </Grid>

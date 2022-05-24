@@ -28,8 +28,8 @@
                     <Button Style="{DynamicResource EyeButton}" Width="25" Height="25" BorderThickness="0,1,1,1" Content="👁" Click="ViewPass"/>
                 </StackPanel>
                 <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
-                    <Button Style="{DynamicResource AuthButton}" Content="Войти" Width="75" Height="22" Margin="0,0,10,0" Foreground="#FF484848" FontWeight="Bold" FontFamily="Calibri" FontSize="13" Click="SignIn_Click" Background="#eaeaea"/>
-                    <Button Style="{DynamicResource AuthButton}" Content="Отмена" Width="75" Height="22" Foreground="#FF484848" FontFamily="Calibri" FontSize="13" Click="Exit_Click" Background="#eaeaea"/>
+                    <Button Style="{DynamicResource AuthButton}" Background="#eaeaea" Content="Войти" Width="75" Height="22" Margin="0,0,10,0" FontWeight="Bold" FontFamily="Calibri" FontSize="13" Click="SignIn_Click"/>
+                    <Button Style="{DynamicResource AuthButton}" Background="#eaeaea" Content="Отмена" Width="75" Height="22" FontFamily="Calibri" FontSize="13" Click="Exit_Click"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

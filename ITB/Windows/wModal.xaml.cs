@@ -20,15 +20,17 @@ namespace ITB.Windows
     /// </summary>
     public partial class wModal : Window
     {
-        public wModal(Frame frmMain, ListView lvTabs)
+        public wModal(Frame frmMain, ListView lvTabs, StackPanel spMenu)
         {
             InitializeComponent();
             frm = frmMain;
             lvt = lvTabs;
+            spm = spMenu;
         }
 
         private Frame frm;
         private ListView lvt;
+        private StackPanel spm;
 
         public void AddCategory(string Header)
         {
@@ -40,20 +42,9 @@ namespace ITB.Windows
         public void AddItem(string ItemTitle, Page ItemPage)
         {
             Button a = new Button() { Content = ItemTitle, Style = FindResource("ModalMenuButton") as Style };
-            a.Click += (object s, RoutedEventArgs e) => lvt.Items.Add(new { Content = ItemTitle, page = ItemPage});
-            a.Click += (object s, RoutedEventArgs e) => lvt.UnselectAll();
-            a.Click += (object s, RoutedEventArgs e) => lvt.SelectedIndex = lvt.Items.Count-1;
-            a.Click += (object s, RoutedEventArgs e) => frm.Navigate(ItemPage);
+            a.Click += (object s, RoutedEventArgs e) => ((wMain)Owner).OpenInTab(ItemTitle, ItemPage);
             a.Click += (object s, RoutedEventArgs e) => Close();
             ((StackPanel)wpContainer.Children[wpContainer.Children.Count-1]).Children.Add(a);
-        }
-
-        public void NavigateStraight(string ItemTitle, Page ItemPage)
-        {
-            lvt.Items.Add(new { Content = ItemTitle, page = ItemPage });
-            lvt.UnselectAll();
-            lvt.SelectedIndex = lvt.Items.Count - 1;
-            frm.Navigate(ItemPage);
         }
 
         private void Exit_Click(object sender, EventArgs e) => Close();

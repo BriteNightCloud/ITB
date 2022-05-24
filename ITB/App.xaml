@@ -313,7 +313,7 @@
         <Style x:Key="AuthButton" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
             <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="Foreground" Value="#FF484848"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -427,6 +427,21 @@
             </Setter>
         </Style>
         <!--#endregion-->
-        
+
+        <!--#region CreateText--> 
+        <Style x:Key="CreateText" TargetType="{x:Type TextBlock}">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+        <!--#endregion-->
+
+        <!--#region CreateTextBox-->
+        <Style x:Key="CreateTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+        <!--#endregion-->
+
     </Application.Resources>
 </Application>

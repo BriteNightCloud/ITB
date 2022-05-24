@@ -78,8 +78,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Pages\pSales.xaml.cs">
-      <DependentUpon>pSales.xaml</DependentUpon>
+    <Compile Include="Classes\DataGridColumn.cs" />
+    <Compile Include="Pages\pCreate.xaml.cs">
+      <DependentUpon>pCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pGeneral.xaml.cs">
+      <DependentUpon>pGeneral.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pReview.xaml.cs">
+      <DependentUpon>pReview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pAdministration.xaml.cs">
+      <DependentUpon>pAdministration.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\wAuth.xaml.cs">
       <DependentUpon>wAuth.xaml</DependentUpon>
@@ -118,7 +128,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Pages\pSales.xaml">
+    <Page Include="Pages\pCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pGeneral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pReview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pAdministration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
