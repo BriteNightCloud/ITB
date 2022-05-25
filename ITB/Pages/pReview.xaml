@@ -38,7 +38,7 @@
                         <ComboBoxItem Content="На согласовании"/>
                         <ComboBoxItem Content="В резерве"/>
                         <ComboBoxItem Content="К отгрузке"/>
-                        <ComboBoxItem Content="Закрыть заказ"/>
+                        <ComboBoxItem Content="Закрытый заказ"/>
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">

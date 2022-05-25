@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b803d8d2b3fc474f8527a9b23570d83e" Name="Diagram1">
+        <EntityTypeShape EntityType="ITBData.Client" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITBData.Nomenclature" Width="1.5" PointX="6" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITBData.Request" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITBData.Role" Width="1.5" PointX="1.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITBData.Sale_Details" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITBData.Sale" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITBData.sysdiagram" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ITBData.Worker" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="ITBData.FK_Requests_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="ITBData.FK_Sales_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="ITBData.FK_Sale_Details_Nomenclature" ManuallyRouted="false" />
+        <AssociationConnector Association="ITBData.FK_Workers_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="ITBData.FK_Sale_Details_Sales" ManuallyRouted="false" />
+        <AssociationConnector Association="ITBData.FK_Sales_Workers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ITB.Windows;
+using ITB.DB;
 
 namespace ITB.Pages
 {
@@ -27,9 +28,17 @@ namespace ITB.Pages
             this.Title = Title;
             foreach (var c in Columns)
                 DataGridColumn.Add(dgTable, c.Header, c.Binding, c.MinWidth);
-            dgTable.Items.Add(new {ID = "00УТ-004111", Date = "20.05.2022", Cost = "15 000,00", Client = "МОРП", Status = "В процессе отгрузки"});
-            dgTable.Items.Add(new {ID = "00УТ-004112", Date = "20.05.2022", Cost = "15 000,00", Client = "МОРП", Status = "В процессе отгрузки", Test = "123"});
-            dgTable.Items.Add(new {ID = "00УТ-004113", Date = "20.05.2022", Cost = "15 000,00", Client = "МОРП", Status = "В процессе отгрузки"});
+            AppData.DB.Clients.Add(new Client() { Name = "Виктория Ивановна", Email = "fsdfs", Phone = "fsdf" });
+            AppData.DB.Clients.Add(new Client() { Name = "Глеб Михайлович", Email = "fsdfs", Phone = "fsdf" });
+            AppData.DB.Clients.Add(new Client() { Name = "Путин ВВ", Email = "fsdfs", Phone = "fsdf" });
+            AppData.DB.Sales.Add(new Sale() { Client_ID = 1, Comment = "Test", Cost = 1424.41m, Date = DateTime.Now, Manager_ID = 1, Status = "На согласовании" });
+            AppData.DB.Sales.Add(new Sale() { Client_ID = 2, Comment = "Тест", Cost = 51283.2m, Date = DateTime.Now, Manager_ID = 1, Status = "В резерве" });
+            AppData.DB.Sales.Add(new Sale() { Client_ID = 1, Comment = "Чисто рандомный текст", Cost = 1442.5m, Date = DateTime.Now, Manager_ID = 1, Status = "К отгрузке" });
+            AppData.DB.Sales.Add(new Sale() { Client_ID = 3, Comment = "qwerty", Cost = 12.5m, Date = DateTime.Now, Manager_ID = 1, Status = "Закрытый заказ" });
+            AppData.DB.Sales.Add(new Sale() { Client_ID = 3, Comment = "zxc", Cost = 12.51m, Date = DateTime.Now, Manager_ID = 1, Status = "Закрытый заказ" });
+            AppData.DB.SaveChanges();
+            dgTable.ItemsSource = AppData.DB.Sales.ToList();
+            //dgTable.Items.Add(new {ID = "00УТ-004113", Date = "20.05.2022", Cost = "15 000,00", Client = "МОРП", Status = "В процессе отгрузки"});
         }
 
         private void tbSearch_Clear(object sender, RoutedEventArgs e) => tbSearch.Text = String.Empty;
@@ -92,5 +101,31 @@ namespace ITB.Pages
                    new DataGridColumn("Количество", "Count", 50),
                    new DataGridColumn("Цена за ед.", "Price", 125),
                    new DataGridColumn("Стоимость", "Cost", 125)));
+
+        //// Обновляет данные в списке.
+        //private void GetData()
+        //{
+        //    // Если какой-либо объект не инициализирован, выходить из функции, чтобы предотвратить ошибки
+        //    if (tbSearch == null || dgTable == null || cbClient == null || cbManager == null || cbStatus == null)
+        //        return;
+
+        //    // Метод Where() ругается, если эту строку напрямую в него запихнуть,
+        //    // поэтому создаю отдельную переменную для этого
+        //    int filter1 = (cbClient.SelectedItem).ID;
+        //    int filter2 = (cbManager.SelectedItem).ID;
+        //    string filter3 = cbStatus?.SelectedItem?.ToString();
+
+        //    // Получаем данные, соответствующие нашим критериям
+        //    dgTable.ItemsSource = AppData.DB.Sales.Where(c =>
+        //        tbSearch.Text != "Введите для поиска" && tbSearch.Text != String.Empty ?
+        //            c.Comment.ToLower().Contains(tbSearch.Text.ToLower()) : true &&
+        //        cbClient.SelectedIndex > 1 ?
+        //            c.Client_ID == filter1 : true &&
+        //        cbManager.SelectedIndex > 1 ?
+        //            c.Manager_ID == filter2 : true &&
+        //        cbStatus.SelectedIndex > 1 ?
+        //            c.Status == filter3 : true
+        //    ).ToList();
+        //}
     }
 }

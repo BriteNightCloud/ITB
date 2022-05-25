@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ITB.Pages;
+using ITB.DB;
 
 namespace ITB.Windows
 {
@@ -56,10 +57,10 @@ namespace ITB.Windows
                     w.AddCategory("Продажи");
                     w.AddItem("Заказы клиентов", 
                         new pReview("Заказы клиентов",
-                        new DataGridColumn("Номер", "ID", 100),
+                        new DataGridColumn("Номер", "ID", 40),
                         new DataGridColumn("Дата", "Date", 80),
                         new DataGridColumn("Сумма", "Cost", 75),
-                        new DataGridColumn("Клиент", "Client", 175),
+                        new DataGridColumn("Клиент", "Client_Name", 175),
                         new DataGridColumn("Текущее состояние", "Status", 150)));
                     w.AddItem("Счета на оплату", new Page());
                     w.AddCategory("Создать");

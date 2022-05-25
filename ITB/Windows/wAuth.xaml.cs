@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ITB.DB;
 
 namespace ITB.Windows
 {
@@ -24,9 +25,20 @@ namespace ITB.Windows
             InitializeComponent();
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            foreach (var i in AppData.DB.Workers)
+                cbUser.Items.Add(i.Login);
+
+            if (cbUser.Items.Count > 0)
+                cbUser.SelectedIndex = 0;
+        }
+
         private void Window_Drag(object s, MouseButtonEventArgs e) => DragMove();
 
         private void Exit_Click(object s, RoutedEventArgs e) => Close();
+
+        private void tbPassword_TextChanged(object sender, TextChangedEventArgs e) => pbPassword.Password = tbPassword.Text;
 
         private void ViewPass(object sender, RoutedEventArgs e)
         {
@@ -48,12 +60,19 @@ namespace ITB.Windows
 
         private void SignIn_Click(object sender, RoutedEventArgs e)
         {
-            if(true)
+            if(AppData.DB.Workers.ToList().Where(c => c.Login == cbUser.Text && c.Password == pbPassword.Password).Count() > 0)
             {
                 Window w = new wMain();
                 w.Show();
                 Close();
             }
+            else MessageBox.Show("Неверное имя пользователя или пароль!", "Ошибка при входе", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void EnterPressed(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                SignIn_Click(sender, e);
         }
     }
 }
