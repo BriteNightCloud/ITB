@@ -1,0 +1,31 @@
+﻿<Window x:Class="ITB.Windows.wCreate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ITB.Windows"
+        mc:Ignorable="d"
+        Title="Добавить" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="59*"/>
+            <ColumnDefinition Width="191*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="0,0,0,15" Width="250" Grid.ColumnSpan="2">
+            <TextBlock Text="Номенклатура"/>
+            <ComboBox x:Name="Nomenclatures" DisplayMemberPath="Name" SelectedValuePath="Name" SelectionChanged="Nomenclatures_SelectionChanged"/>
+            <TextBlock Text="Количество"/>
+            <TextBox x:Name="Count" Padding="0,2" TextChanged="Count_TextChanged"/>
+            <TextBlock Text="Цена за ед."/>
+            <TextBox x:Name="Price" Padding="0,2" IsEnabled="False"/>
+            <TextBlock Text="Стоимость"/>
+            <TextBox x:Name="Cost" Padding="0,2" IsEnabled="False"/>
+        </StackPanel>
+        <Button Grid.Row="1" Content="Добавить" Click="Button_Click" Grid.ColumnSpan="2"/>
+    </Grid>
+</Window>

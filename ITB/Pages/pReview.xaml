@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:ITB.Pages"
       mc:Ignorable="d" Margin="10"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Undefined">
+      Title="Undefined" Loaded="pLoaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -19,34 +19,37 @@
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <StackPanel Margin="0,0,10,0" Width="150">
                     <TextBlock Text="Текущее состояние:"/>
-                    <ComboBox x:Name="cbStatus" Style="{DynamicResource AuthUser}" IsEditable="True"/>
+                    <ComboBox x:Name="cbStatus" Padding="2.5" Style="{DynamicResource AuthUser}" IsEditable="True" SelectionChanged="GetData">
+                        <ComboBoxItem Content="На согласовании"/>
+                        <ComboBoxItem Content="К отгрузке"/>
+                        <ComboBoxItem Content="Закрытый заказ"/>
+                    </ComboBox>
                 </StackPanel>
                 <StackPanel Margin="0,0,10,0" Width="175">
                     <TextBlock Text="Менеджер:"/>
-                    <ComboBox x:Name="cbManager" Style="{DynamicResource AuthUser}" IsEditable="True"/>
+                    <ComboBox x:Name="cbManager" Padding="2.5" DisplayMemberPath="Name" SelectedValuePath="Name" Style="{DynamicResource AuthUser}" IsEditable="True" SelectionChanged="GetData"/>
                 </StackPanel>
                 <StackPanel Width="225">
                     <TextBlock Text="Клиент:"/>
-                    <ComboBox x:Name="cbClient" Style="{DynamicResource AuthUser}" IsEditable="True"/>
+                    <ComboBox x:Name="cbClient" Padding="2.5" DisplayMemberPath="Name" SelectedValuePath="Name" Style="{DynamicResource AuthUser}" IsEditable="True" SelectionChanged="GetData"/>
                 </StackPanel>
             </StackPanel>
             <DockPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                     <Button Style="{DynamicResource AuthButton}" Background="#eaeaea" Content="Создать" Margin="0,0,10,0" Height="25" Width="70" Click="btnCreate_Click"/>
-                    <ComboBox x:Name="cbActions" Foreground="#FF484848" SelectedIndex="0" Width="82" Height="25" Margin="0,0,10,0" SelectionChanged="DropMenu_SelectionChanged">
+                    <ComboBox x:Name="cbActions" Foreground="#FF484848" SelectedIndex="0" Width="82" Height="25" Padding="7,4" Margin="0,0,10,0" SelectionChanged="DropMenu_SelectionChanged">
                         <ComboBoxItem Visibility="Collapsed" Content="Действия"/>
                         <ComboBoxItem Content="На согласовании"/>
-                        <ComboBoxItem Content="В резерве"/>
                         <ComboBoxItem Content="К отгрузке"/>
                         <ComboBoxItem Content="Закрытый заказ"/>
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
-                    <TextBox x:Name="tbSearch" Height="25" Width="200"/>
+                    <TextBox x:Name="tbSearch" Text="Введите для поиска" Height="25" Width="200" Padding="2.5" TextChanged="GetData" GotFocus="tbSearch_GotFocus" LostFocus="tbSearch_LostFocus"/>
                     <Border Height="25" BorderBrush="Silver" BorderThickness="0,1,1,1" Margin="0,0,10,0" SnapsToDevicePixels="True">
                         <Button Style="{DynamicResource ExitButton}" Click="tbSearch_Clear" Width="30"/>
                     </Border>
-                    <ComboBox x:Name="cbMore" Foreground="#FF484848" SelectedIndex="0" Height="25" Width="50" SelectionChanged="DropMenu_SelectionChanged">
+                    <ComboBox x:Name="cbMore" Foreground="#FF484848" SelectedIndex="0" Padding="7,4,0,4" Height="25" Width="50" SelectionChanged="DropMenu_SelectionChanged">
                         <ComboBoxItem Visibility="Collapsed" Content="Еще"/>
                         <ComboBoxItem Content="Создать"/>
                         <ComboBoxItem Content="Скопировать"/>

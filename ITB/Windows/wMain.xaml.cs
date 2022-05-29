@@ -36,6 +36,20 @@ namespace ITB.Windows
             }
 
             OpenInTab("Главная", new pGeneral());
+
+            AppData.DB.Nomenclatures.Add(new Nomenclature() { Name = "Test1", Price = 20 });
+            AppData.DB.Nomenclatures.Add(new Nomenclature() { Name = "Test2", Price = 125 });
+            AppData.DB.Nomenclatures.Add(new Nomenclature() { Name = "Test3", Price = 15 });
+            AppData.DB.Nomenclatures.Add(new Nomenclature() { Name = "Test4", Price = 252.1m });
+            AppData.DB.Clients.Add(new Client() { Name = "Виктория Ивановна", Email = "fsdfs", Phone = "fsdf" });
+            AppData.DB.Clients.Add(new Client() { Name = "Глеб Михайлович", Email = "fsdfs", Phone = "fsdf" });
+            AppData.DB.Clients.Add(new Client() { Name = "Путин ВВ", Email = "fsdfs", Phone = "fsdf" });
+            AppData.DB.Sales.Add(new Sale() { Client_ID = 1, Comment = "Test", Cost = 1424.41m, Date = DateTime.Now, Manager_ID = 1, Status = "На согласовании" });
+            AppData.DB.Sales.Add(new Sale() { Client_ID = 2, Comment = "Тест", Cost = 51283.2m, Date = DateTime.Now, Manager_ID = 1, Status = "На согласовании" });
+            AppData.DB.Sales.Add(new Sale() { Client_ID = 1, Comment = "Чисто рандомный текст", Cost = 1442.5m, Date = DateTime.Now, Manager_ID = 1, Status = "К отгрузке" });
+            AppData.DB.Sales.Add(new Sale() { Client_ID = 3, Comment = "qwerty", Cost = 12.5m, Date = DateTime.Now, Manager_ID = 1, Status = "Закрытый заказ" });
+            AppData.DB.Sales.Add(new Sale() { Client_ID = 3, Comment = "zxc", Cost = 12.51m, Date = DateTime.Now, Manager_ID = 1, Status = "Закрытый заказ" });
+            AppData.DB.SaveChanges();
         }
 
         private void Menu_Click(object sender, RoutedEventArgs e)
@@ -56,21 +70,11 @@ namespace ITB.Windows
                 case "Sales":
                     w.AddCategory("Продажи");
                     w.AddItem("Заказы клиентов", 
-                        new pReview("Заказы клиентов",
-                        new DataGridColumn("Номер", "ID", 40),
-                        new DataGridColumn("Дата", "Date", 80),
-                        new DataGridColumn("Сумма", "Cost", 75),
-                        new DataGridColumn("Клиент", "Client_Name", 175),
-                        new DataGridColumn("Текущее состояние", "Status", 150)));
+                        new pReview("Заказы клиентов"));
                     w.AddItem("Счета на оплату", new Page());
                     w.AddCategory("Создать");
                     w.AddItem("Заказ клиента",
-                        new pCreate("Заказ клиента (создание)",
-                        new DataGridColumn("N", "Index", 25),
-                        new DataGridColumn("Номенклатура", "Nomenclature", 220),
-                        new DataGridColumn("Количество", "Count", 50),
-                        new DataGridColumn("Цена за ед.", "Price", 125),
-                        new DataGridColumn("Стоимость", "Cost", 125)));
+                        new pCreate("Заказ клиента (создание)"));
                     w.ShowDialog();
                     break;
                 case "Administration":

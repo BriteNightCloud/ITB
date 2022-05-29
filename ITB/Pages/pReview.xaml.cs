@@ -22,34 +22,33 @@ namespace ITB.Pages
     /// </summary>
     public partial class pReview : Page
     {
-        public pReview(string Title, params DataGridColumn[] Columns)
+        public pReview(string Title)
         {
             InitializeComponent();
             this.Title = Title;
+
+            DataGridColumn[] Columns = {
+                new DataGridColumn("Номер", "ID", 40),
+                new DataGridColumn("Дата", "Date", 80),
+                new DataGridColumn("Сумма", "Cost", 60),
+                new DataGridColumn("Клиент", "Client_Name", 175),
+                new DataGridColumn("Текущее состояние", "Status", 125)
+            };
             foreach (var c in Columns)
                 DataGridColumn.Add(dgTable, c.Header, c.Binding, c.MinWidth);
-            AppData.DB.Clients.Add(new Client() { Name = "Виктория Ивановна", Email = "fsdfs", Phone = "fsdf" });
-            AppData.DB.Clients.Add(new Client() { Name = "Глеб Михайлович", Email = "fsdfs", Phone = "fsdf" });
-            AppData.DB.Clients.Add(new Client() { Name = "Путин ВВ", Email = "fsdfs", Phone = "fsdf" });
-            AppData.DB.Sales.Add(new Sale() { Client_ID = 1, Comment = "Test", Cost = 1424.41m, Date = DateTime.Now, Manager_ID = 1, Status = "На согласовании" });
-            AppData.DB.Sales.Add(new Sale() { Client_ID = 2, Comment = "Тест", Cost = 51283.2m, Date = DateTime.Now, Manager_ID = 1, Status = "В резерве" });
-            AppData.DB.Sales.Add(new Sale() { Client_ID = 1, Comment = "Чисто рандомный текст", Cost = 1442.5m, Date = DateTime.Now, Manager_ID = 1, Status = "К отгрузке" });
-            AppData.DB.Sales.Add(new Sale() { Client_ID = 3, Comment = "qwerty", Cost = 12.5m, Date = DateTime.Now, Manager_ID = 1, Status = "Закрытый заказ" });
-            AppData.DB.Sales.Add(new Sale() { Client_ID = 3, Comment = "zxc", Cost = 12.51m, Date = DateTime.Now, Manager_ID = 1, Status = "Закрытый заказ" });
-            AppData.DB.SaveChanges();
-            dgTable.ItemsSource = AppData.DB.Sales.ToList();
+
             //dgTable.Items.Add(new {ID = "00УТ-004113", Date = "20.05.2022", Cost = "15 000,00", Client = "МОРП", Status = "В процессе отгрузки"});
         }
 
-        private void tbSearch_Clear(object sender, RoutedEventArgs e) => tbSearch.Text = String.Empty;
-
-        enum Actions
+        private void pLoaded(object sender, RoutedEventArgs e)
         {
-            ToBeAgreed = 1,
-            InReserve,
-            ForShipment,
-            CloseOrder
+            GetData();
+
+            cbClient.ItemsSource = AppData.DB.Clients.ToList();
+            cbManager.ItemsSource = AppData.DB.Workers.ToList();
         }
+
+        private void tbSearch_Clear(object sender, RoutedEventArgs e) => tbSearch.Text = "Введите для поиска";
 
         enum More
         {
@@ -65,67 +64,76 @@ namespace ITB.Pages
             ComboBox obj = (ComboBox)sender;
             if (!obj.IsDropDownOpen)
                 return;
-            if (obj.Name == "cbActions")
-                switch ((Actions)obj.SelectedIndex)
-                {
-                    case Actions.ToBeAgreed:
-                        break;
-                    case Actions.InReserve:
-                        break;
-                    case Actions.ForShipment:
-                        break;
-                    case Actions.CloseOrder:
-                        break;
-                }
+            if (obj.Name == "cbActions" && dgTable.SelectedIndex != -1)
+            {
+                AppData.DB.Database.ExecuteSqlCommand("UPDATE Sales SET Status = '" + ((ComboBoxItem)cbActions.SelectedValue).Content + 
+                    "' WHERE ID = " + ((Sale)dgTable.SelectedItem).ID.ToString());
+                AppData.DB.SaveChanges();
+                GetData();
+            }
             else if (obj.Name == "cbMore")
                 switch ((More)obj.SelectedIndex)
                 {
                     case More.Create:
+                        btnCreate_Click(sender, e);
                         break;
                     case More.Copy:
+                        if (dgTable.SelectedIndex == -1)
+                            return;
                         break;
                     case More.Edit:
+                        if (dgTable.SelectedIndex == -1)
+                            return;
                         break;
                     case More.Delete:
-                        break;
+                        if (dgTable.SelectedIndex == -1)
+                            return;
+                        AppData.DB.Database.ExecuteSqlCommand("DELETE FROM Sale_Details WHERE Sales_ID = " + ((Sale)dgTable.SelectedItem).ID.ToString());
+                        AppData.DB.Database.ExecuteSqlCommand("DELETE FROM Sales WHERE ID = " + ((Sale)dgTable.SelectedItem).ID.ToString());
+                        AppData.DB.SaveChanges();
+                        goto case More.Update;
                     case More.Update:
+                        GetData();
                         break;
                 }
             obj.SelectedIndex = 0;
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e) => ((wMain)Window.GetWindow(this)).OpenInTab("Заказ клиента (создание)", 
-            new pCreate("Заказ клиента (создание)",
-                   new DataGridColumn("N", "Index", 25),
-                   new DataGridColumn("Номенклатура", "Nomenclature", 220),
-                   new DataGridColumn("Количество", "Count", 50),
-                   new DataGridColumn("Цена за ед.", "Price", 125),
-                   new DataGridColumn("Стоимость", "Cost", 125)));
+            new pCreate("Заказ клиента (создание)"));
 
-        //// Обновляет данные в списке.
-        //private void GetData()
-        //{
-        //    // Если какой-либо объект не инициализирован, выходить из функции, чтобы предотвратить ошибки
-        //    if (tbSearch == null || dgTable == null || cbClient == null || cbManager == null || cbStatus == null)
-        //        return;
+        // Обновляет данные в списке.
+        private void GetData()
+        {
+            // Если какой-либо объект не инициализирован, выходить из функции, чтобы предотвратить ошибки
+            if (tbSearch == null || dgTable == null || cbClient == null || cbManager == null || cbStatus == null)
+                return;
 
-        //    // Метод Where() ругается, если эту строку напрямую в него запихнуть,
-        //    // поэтому создаю отдельную переменную для этого
-        //    int filter1 = (cbClient.SelectedItem).ID;
-        //    int filter2 = (cbManager.SelectedItem).ID;
-        //    string filter3 = cbStatus?.SelectedItem?.ToString();
+            // Длинный и "сложный" (на самом деле нет) SQL запрос
+            dgTable.ItemsSource = AppData.DB.Database.SqlQuery<Sale>("SELECT * FROM Sales WHERE ID>0" +
+                (tbSearch.Text != "Введите для поиска" && tbSearch.Text != String.Empty ?
+                    " AND CHARINDEX('" + tbSearch.Text + "', Comment) > 0" : String.Empty) +
+                (cbClient.SelectedIndex > -1 ?
+                    " AND Client_ID=" + ((Client)cbClient.SelectedItem).ID.ToString() : String.Empty) +
+                (cbManager.SelectedIndex > -1 ?
+                    " AND Manager_ID=" + ((Worker)cbManager.SelectedItem).ID.ToString() : String.Empty) +
+                (cbStatus.SelectedIndex > -1 ?
+                    " AND Status='" + ((ComboBoxItem)cbStatus.SelectedValue).Content + "'" : "")
+            ).ToList();
+        }
 
-        //    // Получаем данные, соответствующие нашим критериям
-        //    dgTable.ItemsSource = AppData.DB.Sales.Where(c =>
-        //        tbSearch.Text != "Введите для поиска" && tbSearch.Text != String.Empty ?
-        //            c.Comment.ToLower().Contains(tbSearch.Text.ToLower()) : true &&
-        //        cbClient.SelectedIndex > 1 ?
-        //            c.Client_ID == filter1 : true &&
-        //        cbManager.SelectedIndex > 1 ?
-        //            c.Manager_ID == filter2 : true &&
-        //        cbStatus.SelectedIndex > 1 ?
-        //            c.Status == filter3 : true
-        //    ).ToList();
-        //}
+        private void GetData(object sender, EventArgs e) => GetData();
+
+        private void tbSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbSearch.Text == "Введите для поиска")
+                tbSearch.Text = String.Empty;
+        }
+
+        private void tbSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(tbSearch.Text))
+                tbSearch.Text = "Введите для поиска";
+        }
     }
 }

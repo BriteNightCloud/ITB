@@ -18,7 +18,7 @@
             <TextBlock Text="{Binding ElementName=nameCreate,Path=Title}" FontSize="22" FontWeight="SemiBold" Margin="0,-7,0,10"/>
             <DockPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                    <Button Style="{DynamicResource AuthButton}" FontWeight="Bold" Content="Провести и закрыть" Margin="0,0,10,0" Height="25" Width="140">
+                    <Button Style="{DynamicResource AuthButton}" FontWeight="Bold" Content="Провести и закрыть" Margin="0,0,10,0" Height="25" Width="140" Click="AddAndSave_Click">
                         <Button.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FFFDE436"/>
@@ -28,7 +28,7 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
-                    <ComboBox x:Name="cbMore" Foreground="#FF484848" SelectedIndex="0" Height="25" Width="50" SelectionChanged="DropMenu_SelectionChanged">
+                    <ComboBox x:Name="cbMore" Foreground="#FF484848" SelectedIndex="0" Padding="7,4,0,4" Height="25" Width="50" SelectionChanged="DropMenu_SelectionChanged">
                         <ComboBoxItem Visibility="Collapsed" Content="Еще"/>
                         <ComboBoxItem Content="Провести и закрыть"/>
                         <ComboBoxItem Content="Отменить"/>
@@ -37,7 +37,7 @@
             </DockPanel>
             <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
                 <TextBlock Text="Статус:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                <ComboBox x:Name="cbStatus" Style="{DynamicResource AuthUser}" IsEditable="True" Foreground="#FF484848" SelectedIndex="0" Width="175" Height="25" Margin="0,0,10,0">
+                <ComboBox x:Name="cbStatus" Padding="2.5" Style="{DynamicResource AuthUser}" IsEditable="True" Foreground="#FF484848" SelectedIndex="0" Width="175" Height="25" Margin="0,0,10,0">
                     <ComboBoxItem Content="К отгрузке"/>
                     <ComboBoxItem Content="На согласовании"/>
                     <ComboBoxItem Content="В резерве"/>
@@ -55,17 +55,19 @@
                         </StackPanel>
                         <StackPanel Margin="0,0,25,0">
                             <StackPanel Orientation="Horizontal">
-                                <TextBox x:Name="tbID" Style="{DynamicResource CreateTextBox}" Width="50" IsEnabled="False"/>
+                                <TextBox x:Name="tbID" Padding="2.5" Style="{DynamicResource CreateTextBox}" Width="50" IsEnabled="False"/>
                                 <TextBlock Style="{DynamicResource CreateText}" Text="от:" Margin="10,0,5,0" Width="15"/>
                                 <DatePicker x:Name="dpDate" Width="120" Height="25" Margin="0,0,0,10" SelectedDateFormat="Long" Text="bfjhfjfj" FirstDayOfWeek="Monday" Loaded="DatePicker_Loaded"/>
                             </StackPanel>
-                            <TextBox x:Name="tbCost" Style="{DynamicResource CreateTextBox}"/>
+                            <TextBox x:Name="tbCost" Padding="2.5" Style="{DynamicResource CreateTextBox}" Text="0" IsEnabled="False"/>
                         </StackPanel>
                         <StackPanel Margin="0,0,25,0">
+                            <TextBlock Style="{DynamicResource CreateText}" Text="Менеджер:"/>
                             <TextBlock Style="{DynamicResource CreateText}" Text="Клиент:"/>
                         </StackPanel>
                         <StackPanel>
-                            <ComboBox x:Name="tbClient" Width="200" Height="25" Style="{DynamicResource AuthUser}" IsEditable="True"/>
+                            <ComboBox x:Name="cbManager" Padding="2.5" DisplayMemberPath="Name" SelectedValuePath="Name" Width="200" Height="25" Margin="0,0,0,10" Style="{DynamicResource AuthUser}" IsEditable="True"/>
+                            <ComboBox x:Name="cbClient" Padding="2.5" DisplayMemberPath="Name" SelectedValuePath="Name" Width="200" Height="25" Margin="0,0,0,10" Style="{DynamicResource AuthUser}" IsEditable="True"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -75,17 +77,21 @@
             </TabItem>
             <TabItem Header="Товары">
                 <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="569*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Grid.ColumnSpan="2">
                         <Button Style="{DynamicResource AuthButton}" Background="#eaeaea" Content="Добавить" Margin="0,0,10,0" Height="25" Width="70" Click="btnAdd_Click"/>
                         <Button Style="{DynamicResource AuthButton}" Background="#eaeaea" Content="Удалить" Margin="0,0,10,0" Height="25" Width="70" Click="btnRemove_Click"/>
                     </StackPanel>
                     <DataGrid x:Name="dgTable" AutoGenerateColumns="false" IsReadOnly="True" AreRowDetailsFrozen="True" Grid.Row="1"
                               CanUserResizeRows="False" CanUserReorderColumns="False" AlternatingRowBackground="#FFFAFAFA" RowBackground="White" SelectionMode="Single" 
-                              CanUserAddRows="False" CanUserDeleteRows="False" RowDetailsVisibilityMode="Collapsed" HeadersVisibility="Column">
+                              CanUserAddRows="False" CanUserDeleteRows="False" RowDetailsVisibilityMode="Collapsed" HeadersVisibility="Column" Grid.ColumnSpan="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn MaxWidth="20" CanUserResize="False"/>
                         </DataGrid.Columns>

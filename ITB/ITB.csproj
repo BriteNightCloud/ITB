@@ -60,7 +60,9 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero2" />
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
@@ -89,6 +91,7 @@
     </Compile>
     <Compile Include="Classes\DataGridColumn.cs" />
     <Compile Include="Classes\partialSales.cs" />
+    <Compile Include="Classes\partialSale_Details.cs" />
     <Compile Include="DB\AppData.cs" />
     <Compile Include="DB\Client.cs">
       <DependentUpon>Database.tt</DependentUpon>
@@ -143,6 +146,9 @@
     </Compile>
     <Compile Include="Windows\wAuth.xaml.cs">
       <DependentUpon>wAuth.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\wCreate.xaml.cs">
+      <DependentUpon>wCreate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\wMain.xaml.cs">
       <DependentUpon>wMain.xaml</DependentUpon>
@@ -203,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\wAuth.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\wCreate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
