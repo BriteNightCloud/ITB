@@ -79,23 +79,28 @@ namespace ITB.Pages
                         break;
                     case More.Copy:
                         if (dgTable.SelectedIndex == -1)
-                            return;
+                            goto DropMenuReturn;
+                        ((wMain)Window.GetWindow(this)).OpenInTab("Заказ клиента (создание копии)",
+                            new pCreate("Заказ клиента (создание копии)", (Sale)dgTable.SelectedItem, isEdit: false));
                         break;
                     case More.Edit:
                         if (dgTable.SelectedIndex == -1)
-                            return;
+                            goto DropMenuReturn;
+                        ((wMain)Window.GetWindow(this)).OpenInTab("Заказ клиента (редактирование)",
+                            new pCreate("Заказ клиента (редактирование)", (Sale)dgTable.SelectedItem, isEdit: true));
                         break;
                     case More.Delete:
                         if (dgTable.SelectedIndex == -1)
-                            return;
-                        AppData.DB.Database.ExecuteSqlCommand("DELETE FROM Sale_Details WHERE Sales_ID = " + ((Sale)dgTable.SelectedItem).ID.ToString());
-                        AppData.DB.Database.ExecuteSqlCommand("DELETE FROM Sales WHERE ID = " + ((Sale)dgTable.SelectedItem).ID.ToString());
+                            goto DropMenuReturn;
+                        AppData.DB.Database.ExecuteSqlCommand("DELETE FROM Sale_Details WHERE Sales_ID = " + dgTable.SelectedItem?.GetType()?.GetProperty("ID")?.GetValue(dgTable.SelectedItem, null).ToString());
+                        AppData.DB.Database.ExecuteSqlCommand("DELETE FROM Sales WHERE ID = " + dgTable.SelectedItem?.GetType()?.GetProperty("ID")?.GetValue(dgTable.SelectedItem, null).ToString());
                         AppData.DB.SaveChanges();
                         goto case More.Update;
                     case More.Update:
                         GetData();
                         break;
                 }
+            DropMenuReturn:
             obj.SelectedIndex = 0;
         }
 

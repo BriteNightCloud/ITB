@@ -16,22 +16,21 @@
 
         <StackPanel Grid.Row="0" Margin="0,0,0,10">
             <TextBlock Text="{Binding ElementName=nameAdministration, Path=Title}" FontSize="22" FontWeight="SemiBold" Margin="0,-7,0,10"/>
-            <Button Style="{DynamicResource AuthButton}" Background="#eaeaea" Height="25" Width="95" Margin="0,0,0,10" Content="Сохранить" HorizontalAlignment="Left"/>
             <DockPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                     <Button Style="{DynamicResource AuthButton}" Background="#eaeaea" Content="Создать" Margin="0,0,10,0" Height="25" Width="70" Click="btnCreate_Click"/>
-                    <ComboBox x:Name="cbActions" Foreground="#FF484848" SelectedIndex="0" Width="82" Height="25" Margin="0,0,10,0" SelectionChanged="DropMenu_SelectionChanged">
+                    <ComboBox x:Name="cbActions" Foreground="#FF484848" SelectedIndex="0" Width="82" Height="25" Padding="7,4" Margin="0,0,10,0" SelectionChanged="DropMenu_SelectionChanged">
                         <ComboBoxItem Visibility="Collapsed" Content="Действия"/>
                         <ComboBoxItem Content="Изменить"/>
                         <ComboBoxItem Content="Удалить"/>
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
-                    <TextBox x:Name="tbSearch" Height="25" Width="200"/>
+                    <TextBox x:Name="tbSearch" Text="Введите для поиска" Height="25" Width="200" Padding="2.5" GotFocus="tbSearch_GotFocus" LostFocus="tbSearch_LostFocus" TextChanged="tbSearch_TextChanged"/>
                     <Border Height="25" BorderBrush="Silver" BorderThickness="0,1,1,1" Margin="0,0,10,0" SnapsToDevicePixels="True">
                         <Button Style="{DynamicResource ExitButton}" Click="tbSearch_Clear" Width="30"/>
                     </Border>
-                    <ComboBox x:Name="cbMore" Foreground="#FF484848" SelectedIndex="0" Height="25" Width="50" SelectionChanged="DropMenu_SelectionChanged">
+                    <ComboBox x:Name="cbMore" Foreground="#FF484848" SelectedIndex="0" Height="25" Width="50" Padding="7,4,0,4" SelectionChanged="DropMenu_SelectionChanged">
                         <ComboBoxItem Visibility="Collapsed" Content="Еще"/>
                         <ComboBoxItem Content="Создать"/>
                         <ComboBoxItem Content="Скопировать"/>

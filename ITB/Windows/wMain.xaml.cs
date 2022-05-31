@@ -41,14 +41,18 @@ namespace ITB.Windows
             AppData.DB.Nomenclatures.Add(new Nomenclature() { Name = "Test2", Price = 125 });
             AppData.DB.Nomenclatures.Add(new Nomenclature() { Name = "Test3", Price = 15 });
             AppData.DB.Nomenclatures.Add(new Nomenclature() { Name = "Test4", Price = 252.1m });
-            AppData.DB.Clients.Add(new Client() { Name = "Виктория Ивановна", Email = "fsdfs", Phone = "fsdf" });
-            AppData.DB.Clients.Add(new Client() { Name = "Глеб Михайлович", Email = "fsdfs", Phone = "fsdf" });
-            AppData.DB.Clients.Add(new Client() { Name = "Путин ВВ", Email = "fsdfs", Phone = "fsdf" });
+            AppData.DB.Clients.Add(new Client() { Name = "Виктория Ивановна", Email = "qwe", Phone = "ewq" });
+            AppData.DB.Clients.Add(new Client() { Name = "Глеб Михайлович", Email = "asd", Phone = "dsa" });
+            AppData.DB.Clients.Add(new Client() { Name = "Виктор", Email = "dsa", Phone = "asd" });
             AppData.DB.Sales.Add(new Sale() { Client_ID = 1, Comment = "Test", Cost = 1424.41m, Date = DateTime.Now, Manager_ID = 1, Status = "На согласовании" });
             AppData.DB.Sales.Add(new Sale() { Client_ID = 2, Comment = "Тест", Cost = 51283.2m, Date = DateTime.Now, Manager_ID = 1, Status = "На согласовании" });
             AppData.DB.Sales.Add(new Sale() { Client_ID = 1, Comment = "Чисто рандомный текст", Cost = 1442.5m, Date = DateTime.Now, Manager_ID = 1, Status = "К отгрузке" });
             AppData.DB.Sales.Add(new Sale() { Client_ID = 3, Comment = "qwerty", Cost = 12.5m, Date = DateTime.Now, Manager_ID = 1, Status = "Закрытый заказ" });
             AppData.DB.Sales.Add(new Sale() { Client_ID = 3, Comment = "zxc", Cost = 12.51m, Date = DateTime.Now, Manager_ID = 1, Status = "Закрытый заказ" });
+            AppData.DB.SaveChanges();
+            AppData.DB.Sale_Details.Add(new Sale_Details() { Index = 1, Nomenclature_ID = 1, Price = 20, Sales_ID = 1, Count = 14 });
+            AppData.DB.Sale_Details.Add(new Sale_Details() { Index = 2, Nomenclature_ID = 2, Price = 125, Sales_ID = 1, Count = 14 });
+            AppData.DB.Sale_Details.Add(new Sale_Details() { Index = 3, Nomenclature_ID = 3, Price = 15, Sales_ID = 1, Count = 14 });
             AppData.DB.SaveChanges();
         }
 
@@ -79,11 +83,11 @@ namespace ITB.Windows
                     break;
                 case "Administration":
                     w.AddCategory("НСИ");
-                    w.AddItem("Номенклатуры", new pAdministration("Номенклатуры", 
+                    w.AddItem("Номенклатуры", new pAdministration("Номенклатуры", "Nomenclature",
                         new DataGridColumn("ID", "ID",30),
                         new DataGridColumn("Наименование", "Name",220),
                         new DataGridColumn("Цена за 1", "Price",150)));
-                    w.AddItem("Клиенты", new pAdministration("Клиенты",
+                    w.AddItem("Клиенты", new pAdministration("Клиенты", "Client",
                         new DataGridColumn("ID", "ID",30),
                         new DataGridColumn("Наименование", "Name",220),
                         new DataGridColumn("Телефон", "Phone",150),

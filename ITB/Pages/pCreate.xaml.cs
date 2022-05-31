@@ -42,14 +42,35 @@ namespace ITB.Pages
             cbManager.ItemsSource = AppData.DB.Workers.ToList();
         }
 
-        public pCreate(string Title, Sale sale) : this(Title)
+        public pCreate(string Title, Sale sale, bool isEdit = false) : this(Title)
         {
+            this.isEdit = isEdit;
+
             this.sale = sale;
+            if (isEdit)
             this.Sale_ID = sale.ID;
+
+            if (isEdit)
+                this.tbID.Text = sale.ID.ToString();
+
+            this.cbStatus.Text = sale.Status;
+            this.tbCost.Text = sale.Cost.ToString();
+            this.cbManager.SelectedItem = AppData.DB.Workers.Where(c => c.ID == sale.Manager_ID).First();
+            this.cbClient.SelectedItem = AppData.DB.Clients.Where(c => c.ID == sale.Client_ID).First();
+            this.tbComment.Text = sale.Comment;
+            this.dpDate.SelectedDate = sale.Date;
+
+            foreach (Sale_Details i in AppData.DB.Sale_Details.Where(c => c.Sales_ID == sale.ID))
+            {
+                i.Sales_ID = this.Sale_ID;
+                dgTable.Items.Add(i);
+            }
         }
 
+        private bool isEdit;
         private int Sale_ID;
         private Sale sale;
+        private bool isDetailsChanged = false;
 
         enum More
         {
@@ -87,6 +108,7 @@ namespace ITB.Pages
             window.Closing += UpdateCost;
             window.Owner = Window.GetWindow(this);
             window.ShowDialog();
+            this.isDetailsChanged = true;
         }
 
         private void AddElem(object sender, System.ComponentModel.CancelEventArgs e)
@@ -107,12 +129,22 @@ namespace ITB.Pages
             dgTable.Items.Remove(dgTable.SelectedItem);
 
             int i = 1;
+            List<Sale_Details> list = new List<Sale_Details>();
             foreach (Sale_Details a in dgTable.Items)
+            {
                 a.Index = i++;
+                list.Add(a);
+            }
+            dgTable.Items.Clear();
+            foreach (Sale_Details a in list)
+                dgTable.Items.Add(a);
+            this.isDetailsChanged = true;
         }
 
         private void AddAndSave_Click(object sender, RoutedEventArgs e)
         {
+            if (isEdit)
+                goto Edit;
             try
             {
                 if (dgTable.Items.Count < 1)
@@ -123,6 +155,43 @@ namespace ITB.Pages
                 foreach (Sale_Details a in dgTable.Items)
                     AppData.DB.Sale_Details.Add(a);
                 AppData.DB.SaveChanges();
+
+                // Закрыть вкладку
+                ((wMain)Window.GetWindow(this)).lvTabs.Items.RemoveAt(((wMain)Window.GetWindow(this)).lvTabs.SelectedIndex);
+
+                // Выбрать вкладку слева от закрытой
+                if (((wMain)Window.GetWindow(this)).lvTabs.SelectedIndex == -1)
+                    ((wMain)Window.GetWindow(this)).lvTabs.SelectedIndex = ((wMain)Window.GetWindow(this)).lvTabs.Items.Count - 1;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message + "\n" + ex.InnerException?.InnerException.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); }
+            return;
+
+        Edit:
+
+            try
+            {
+                if (dgTable.Items.Count < 1)
+                    throw new Exception("Необходимо указать хотя бы один товар!");
+                Sale a = AppData.DB.Sales.Where(c => c.ID == sale.ID).First();
+                a.Client_ID = ((Client)cbClient.SelectedItem).ID;
+                a.Cost = Decimal.Parse(tbCost.Text);
+                a.Date = dpDate.DisplayDate;
+                a.Comment = tbComment.Text;
+                a.Manager_ID = ((Worker)cbManager.SelectedItem).ID;
+                a.Status = cbStatus.Text;
+
+                AppData.DB.SaveChanges();
+
+                if (isDetailsChanged)
+                {
+                    foreach (Sale_Details i in AppData.DB.Sale_Details.Where(c => c.Sales_ID == sale.ID))
+                        AppData.DB.Sale_Details.Remove(i);
+                    AppData.DB.SaveChanges();
+
+                    foreach (Sale_Details i in dgTable.Items)
+                        AppData.DB.Sale_Details.Add(i);
+                    AppData.DB.SaveChanges();
+                }
 
                 // Закрыть вкладку
                 ((wMain)Window.GetWindow(this)).lvTabs.Items.RemoveAt(((wMain)Window.GetWindow(this)).lvTabs.SelectedIndex);

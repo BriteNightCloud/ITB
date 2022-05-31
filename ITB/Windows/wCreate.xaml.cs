@@ -24,26 +24,16 @@ namespace ITB.Windows
         {
             InitializeComponent();
             Nomenclatures.ItemsSource = AppData.DB.Nomenclatures.ToList();
-            this.a = new Sale_Details();
+            Nomenclatures.Focus();
         }
 
         private Sale_Details a;
-
-        public wCreate(Sale_Details a) : base()
-        {
-            this.a.Index = a.Index;
-            this.a.Price = a.Price;
-            this.a.Count = a.Count;
-            this.a.Nomenclature_ID = a.Nomenclature_ID;
-            Nomenclatures.SelectedItem = AppData.DB.Database.SqlQuery<Nomenclature>("SELECT * WHERE ID = " + a.ID).ToList().First();
-            Count.Text = a.Count.ToString();
-            Price.Text = a.Price.ToString();
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                a = new Sale_Details();
                 a.Nomenclature_ID = ((Nomenclature)Nomenclatures.SelectedItem).ID;
                 a.Price = decimal.Parse(Price.Text);
                 a.Count = decimal.Parse(Count.Text);
@@ -64,12 +54,27 @@ namespace ITB.Windows
         {
             Price.Text = ((Nomenclature)Nomenclatures.SelectedItem).Price.ToString();
             Count_TextChanged(sender, e);
+            Count.Focus();
         }
 
         private void Count_TextChanged(object sender, EventArgs e)
         {
+            decimal.TryParse(Price.Text, out decimal b);
             if (int.TryParse(Count.Text, out int a))
-                Cost.Text = (a * ((Nomenclature)Nomenclatures.SelectedItem).Price).ToString();
+                Cost.Text = (a * b).ToString();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                Button_Click(sender, e);
+        }
+
+        private void Price_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            decimal.TryParse(Price.Text, out decimal b);
+            if (int.TryParse(Count.Text, out int a))
+                Cost.Text = (a * b).ToString();
         }
     }
 }
